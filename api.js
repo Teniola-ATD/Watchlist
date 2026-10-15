@@ -30,9 +30,18 @@ async function fetchTitles(path, extra, signal) {
   const data = await response.json();
 
   // keep movies and TV shows only (search can also return people)
-  return data.results
-    .filter((apiItem) => apiItem.media_type === 'movie' || apiItem.media_type === 'tv')
-    .map(makeItem);
+  return (data.results || [])
+    .filter((apiItem) => {
+      // Search/multi and trending/all include media_type; tolerate endpoints that do not.
+      const type = apiItem.media_type || (apiItem.title ? 'movie' : apiItem.name ? 'tv' : '');
+      return type === 'movie' || type === 'tv';
+    })
+    .map((apiItem) => {
+      if (!apiItem.media_type) {
+        apiItem = { ...apiItem, media_type: apiItem.title ? 'movie' : 'tv' };
+      }
+      return makeItem(apiItem);
+    });
 }
 
 // Secondary task: remember the popular titles so we only ask the API once
