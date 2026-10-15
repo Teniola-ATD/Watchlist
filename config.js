@@ -7,7 +7,7 @@
    Do not commit your real API key. Paste it locally to run the app.
    ============================================================ */
 
-const API_KEY = 'YOUR_TMDB_API_KEY';
+const API_KEY = "4263fb69686b56e22d82e101bc34c332";
 const API_URL = 'https://api.themoviedb.org/3';
 const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
 const STORAGE_KEY = 'watchlist.v1';
