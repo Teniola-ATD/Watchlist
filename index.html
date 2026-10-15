@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>8th Watch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="min-h-screen bg-black text-neutral-100">
+
+  <!-- ============================================================
+       POD: Core & Integration | #1 Tech Lead, #2 Product/UX
+       Page layout. Each pod only edits its own marked section.
+       ============================================================ -->
+  <header class="sticky top-0 z-20 border-b border-neutral-800 bg-black">
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 md:flex-row md:items-center md:justify-between">
+      <h1 class="text-3xl font-extrabold"><span class="text-orange-600">8</span>th Watch</h1>
+
+      <!-- POD: Discovery | #4 Search UI Dev | search input -->
+      <input id="search" type="search" placeholder="Search movies and TV shows" aria-label="Search movies and TV shows"
+        class="w-full rounded-full border border-neutral-700 bg-neutral-900 px-5 py-2.5 text-sm placeholder:text-neutral-500 focus:border-orange-600 md:max-w-md" />
+      <!-- END POD: Discovery (search input) -->
+    </div>
+
+    <!-- POD: Details & State | #8 Watchlist State Dev | tabs -->
+    <nav class="mx-auto flex max-w-7xl gap-6 px-4">
+      <button id="tab-discover" class="-mb-px border-b-2 py-3 text-sm font-semibold">Discover</button>
+      <button id="tab-want" class="-mb-px border-b-2 py-3 text-sm font-semibold">Want to Watch <span id="count-want" class="text-neutral-500"></span></button>
+      <button id="tab-completed" class="-mb-px border-b-2 py-3 text-sm font-semibold">Completed <span id="count-completed" class="text-neutral-500"></span></button>
+    </nav>
+    <!-- END POD: Details & State (tabs) -->
+  </header>
+
+  <main class="mx-auto max-w-7xl px-4 py-8">
+    <h2 id="view-title" class="mb-6 text-2xl font-semibold"></h2>
+
+    <!-- POD: Discovery | #4 Search UI Dev | loading, empty and error messages -->
+    <p id="message" role="status" class="hidden rounded-md border border-neutral-800 bg-neutral-900 p-6 text-neutral-300"></p>
+
+    <!-- POD: Discovery | #5 Cards & Grid Dev | responsive card grid -->
+    <section id="grid" class="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"></section>
+  </main>
+
+  <!-- ============================================================
+       POD: Details & State | #7 Modal & Details Dev | movie details modal
+       ============================================================ -->
+  <div id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" class="fixed inset-0 z-30 hidden items-center justify-center p-4">
+    <div id="modal-backdrop" class="absolute inset-0 bg-black/80"></div>
+    <div class="relative flex max-h-[90vh] w-full max-w-3xl flex-col overflow-y-auto rounded-xl border border-neutral-800 bg-neutral-900 sm:flex-row">
+      <button id="modal-close" aria-label="Close details" class="absolute right-3 top-3 rounded-full bg-black/70 px-3 py-1 text-sm hover:text-orange-500">Close</button>
+      <div id="modal-poster" class="aspect-[2/3] w-full shrink-0 bg-neutral-800 sm:w-64"></div>
+      <div class="flex flex-1 flex-col gap-4 p-6">
+        <div>
+          <h3 id="modal-title" class="pr-16 text-2xl font-extrabold"></h3>
+          <p id="modal-meta" class="mt-1 text-sm text-neutral-400"></p>
+        </div>
+        <!-- POD: Discovery | #6 Rating & Overlay Dev | rating stars -->
+        <div id="modal-rating"></div>
+        <p id="modal-overview" class="text-sm leading-relaxed text-neutral-300"></p>
+
+        <!-- POD: Details & State | #8 Watchlist State Dev | add / move / remove buttons -->
+        <div class="mt-auto flex flex-wrap gap-3">
+          <button id="btn-want" class="rounded-full bg-orange-600 px-5 py-2 text-sm font-semibold text-black hover:bg-orange-500"></button>
+          <button id="btn-completed" class="rounded-full bg-orange-600 px-5 py-2 text-sm font-semibold text-black hover:bg-orange-500">Mark as completed</button>
+          <button id="btn-remove" class="rounded-full border border-neutral-600 px-5 py-2 text-sm font-semibold hover:border-orange-600 hover:text-orange-500">Remove</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCRIPTS: the order matters. Owned by #1 Tech Lead.
+       ============================================================ -->
+  <script src="js/config.js"></script>    <!-- Quality & Release | #11 -->
+  <script src="js/state.js"></script>     <!-- Core & Integration | #1 -->
+  <script src="js/storage.js"></script>   <!-- Details & State | #9 -->
+  <script src="js/api.js"></script>       <!-- Discovery | #3 -->
+  <script src="js/rating.js"></script>    <!-- Discovery | #6 -->
+  <script src="js/cards.js"></script>     <!-- Discovery | #5 -->
+  <script src="js/search.js"></script>    <!-- Discovery | #4 -->
+  <script src="js/modal.js"></script>     <!-- Details & State | #7 -->
+  <script src="js/watchlist.js"></script> <!-- Details & State | #8 -->
+  <script src="js/app.js"></script>       <!-- Core & Integration | #1 (loads last) -->
+</body>
+</html>
